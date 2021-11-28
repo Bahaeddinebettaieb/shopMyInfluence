@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smi.test">
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <application
-        android:name="com.smi.test.presentation.App"
+        android:name=".presentation.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopMyInfluence">
-        <activity android:name="com.smi.test.presentation.signUp.SignUpActivity" />
-        <activity android:name="com.smi.test.presentation.signIn.SignInActivity" />
-        <activity android:name="com.smi.test.presentation.home.HomeActivity"/>
-        <activity android:name="com.smi.test.presentation.splash.SplashActivity">
+        <activity android:name=".presentation.detailsBrand.DetailsBrandActivity"></activity>
+        <activity android:name=".presentation.signUp.SignUpActivity" />
+        <activity android:name=".presentation.signIn.SignInActivity" />
+        <activity android:name=".presentation.home.HomeActivity" />
+        <activity android:name=".presentation.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,5 +22,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
