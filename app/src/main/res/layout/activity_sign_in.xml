@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.signIn.SignInActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.11" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/logo_shop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_03" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/cairo_regular"
+        android:text="Hello, Sign In To Continue"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/email_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:elevation="20dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/email"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/email_linear_error"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/email_et">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/empty_field_email"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cairo_regular"-->
+<!--            android:text="@string/empty_field"-->
+<!--            android:textColor="@color/material_on_primary_emphasis_medium"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/wrong_email"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cairo_regular"-->
+<!--            android:text="@string/incorrect_email"-->
+<!--            android:textColor="@color/material_on_primary_emphasis_medium"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone" />-->
+<!--    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/password_input_linear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/edit_text_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_et">
+
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:padding="10dp"
+            android:background="@null"
+            android:hint="@string/password"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone" />
+
+        <ImageView
+            android:id="@+id/iv_pwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="20"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_eye_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/edit_password" />
+
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/password_linear_error"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/password_input_linear">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/empty_field_password"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cairo_regular"-->
+<!--            android:text="@string/empty_field"-->
+<!--            android:textColor="@color/material_on_primary_emphasis_medium"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/wrong_password"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/cairo_regular"-->
+<!--            android:text="@string/incorrect_password"-->
+<!--            android:textColor="@color/material_on_primary_emphasis_medium"-->
+<!--            android:textSize="14sp"-->
+<!--            android:visibility="gone" />-->
+<!--    </LinearLayout>-->
+
+    <TextView
+        android:id="@+id/sign_up_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cairo_regular"
+        android:gravity="end"
+        android:layout_margin="10dp"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/password_input_linear"
+        app:layout_constraintStart_toStartOf="@+id/password_input_linear"
+        app:layout_constraintTop_toBottomOf="@+id/password_input_linear" />
+
+    <TextView
+        android:id="@+id/sign_in_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cairo_regular"
+        android:paddingLeft="100dp"
+        android:paddingRight="100dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/edit_text_background"
+        android:backgroundTint="#7A2C63"
+        android:gravity="center"
+        android:text="@string/sign_in"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/password_input_linear"
+        app:layout_constraintStart_toStartOf="@+id/password_input_linear"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

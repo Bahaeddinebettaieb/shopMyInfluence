@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "675219586721",
+    "firebase_url": "https://test-technique-a5ac7.firebaseio.com",
+    "project_id": "test-technique-a5ac7",
+    "storage_bucket": "test-technique-a5ac7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675219586721:android:a6bd69b6be819b2e63fae0",
+        "android_client_info": {
+          "package_name": "com.smi.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675219586721-a3bpj78i6npe57c15bim4p03428ohf5e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxTX6BbTBhtE2hii23htfQRmXJtS5Hkw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675219586721-a3bpj78i6npe57c15bim4p03428ohf5e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "675219586721-2ogobrqcled2krpa6l5sa2d7aehebmv1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.smi.test"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
