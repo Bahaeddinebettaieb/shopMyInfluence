@@ -1,9 +1,15 @@
 package com.smi.test.presentation.signUp
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,10 +24,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.smi.test.R
 import com.smi.test.presentation.App.Companion.context
+import com.smi.test.presentation.Const
 import com.smi.test.presentation.entites.User
+import com.smi.test.presentation.home.HomeActivity
 import com.smi.test.presentation.signIn.SignInActivity
 import com.smi.test.presentation.utils.GlobalUtils
 import com.smi.test.presentation.utils.StringValidatorsUtils
+import io.paperdb.Paper
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
@@ -40,6 +49,7 @@ class SignUpActivity : AppCompatActivity() {
     private var firebaseDatabase: FirebaseDatabase? = null
     private var databaseReference: DatabaseReference? = null
     private var user: User? = null
+    var dialogLoadingProgress: Dialog? = null
 
     var usernameText: String? = null
     var passwordText: String? = null
@@ -81,6 +91,10 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         signUpBtn!!.setOnClickListener {
+            usernameText = usernameEditText!!.text.toString().trim { it <= ' ' }
+            emailText = emailEditText!!.text.toString().trim { it <= ' ' }
+            passwordText = passwordEditText!!.text.toString().trim { it <= ' ' }
+            confirmPasswordText = confirmPasswordEditText!!.text.toString().trim { it <= ' ' }
             user = User(usernameText, emailText, passwordText)
             signUp(emailText, passwordText)
         }
@@ -179,9 +193,11 @@ class SignUpActivity : AppCompatActivity() {
 
     fun signUp(email: String?, password: String?) {
         if (checkFields()){
+            showProgressLoadingDialog()
             firebaseAuth!!.createUserWithEmailAndPassword(email!!, password!!)
                 .addOnCompleteListener(this,
                     OnCompleteListener<AuthResult?> { task ->
+                        hideProgressLoadingDialog()
                         if (task.isSuccessful) {
                             val user: FirebaseUser = firebaseAuth!!.currentUser!!
                             val email = user.email
@@ -194,16 +210,48 @@ class SignUpActivity : AppCompatActivity() {
                             firebaseDatabase = FirebaseDatabase.getInstance()
                             databaseReference = firebaseDatabase!!.getReference("users")
                             databaseReference!!.child(uid).setValue(hashMap)
-                            Toast.makeText(this, context.getString(R.string.success_registration), Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(this, context.getString(R.string.success_registration), Toast.LENGTH_SHORT).show()
+                            Paper.book().write(Const.USER_INFO,user.uid)
+                            GlobalUtils.navigateToActivity(
+                                this,
+                                this,HomeActivity::class.java
+                            )
                         } else {
                             Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }).addOnFailureListener(OnFailureListener { e ->
+                    hideProgressLoadingDialog()
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 })
         }
+    }
 
+    fun showProgressLoadingDialog() {
+        try {
+            val view = LayoutInflater.from(this)
+                .inflate(R.layout.progress_bar_dialog, null, false)
+            val alertDialogBuilder = AlertDialog.Builder(this, R.style.CustomDialog)
+            alertDialogBuilder.setView(view)
+            dialogLoadingProgress = alertDialogBuilder.create()
+            dialogLoadingProgress!!.setCanceledOnTouchOutside(false)
+            dialogLoadingProgress!!.setCancelable(false)
+            dialogLoadingProgress!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogLoadingProgress!!.show()
+            dialogLoadingProgress!!.window!!.setLayout(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "hideProgressLoadingDialog: $e")
+        }
+    }
+
+    fun hideProgressLoadingDialog() {
+        try {
+            (dialogLoadingProgress as AlertDialog?)!!.dismiss()
+        } catch (e: Exception) {
+            Log.e(TAG, "hideProgressLoadingDialog: $e")
+        }
     }
 }

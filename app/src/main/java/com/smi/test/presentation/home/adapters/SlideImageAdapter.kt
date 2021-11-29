@@ -56,15 +56,15 @@ class SlideImageAdapter(
         val image = view.findViewById<View>(R.id.imageView) as ImageView
         val progressBar = view.findViewById<View>(R.id.progress_bar) as ProgressBar
 
-//        Thread {
-//            (Runnable {
-//                Picasso.get().load(newBrandsList[position].image).into(image)
-//            })
-//        }.start()
+        Thread {
+            (Runnable {
+                Picasso.get().load(newBrandsList[position].pic).into(image)
+            })
+        }.start()
 
-        if (newBrandsList[position].image != null)
+        if (newBrandsList[position].pic != null)
             Glide.with(view.rootView.context)
-                .load(newBrandsList[position].image)
+                .load(newBrandsList[position].pic)
                 .error(R.drawable.logo_shop)
                 .apply(
                     RequestOptions()

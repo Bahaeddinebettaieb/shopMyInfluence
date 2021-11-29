@@ -3,13 +3,18 @@ package com.smi.test.presentation.utils
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Geocoder
 import android.location.Location
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
+import android.view.LayoutInflater
+import android.view.WindowManager
 import com.smi.test.R
+import com.smi.test.presentation.App.Companion.context
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -18,6 +23,35 @@ import java.util.*
 class GlobalUtils {
     companion object {
         private val TAG = "GlobalUtils"
+        var dialogLoadingProgress: Dialog? = null
+
+        fun showProgressLoadingDialog() {
+            try {
+                val view = LayoutInflater.from(context)
+                    .inflate(R.layout.progress_bar_dialog, null, false)
+                val alertDialogBuilder = AlertDialog.Builder(context, R.style.CustomDialog)
+                alertDialogBuilder.setView(view)
+                dialogLoadingProgress = alertDialogBuilder.create()
+                dialogLoadingProgress!!.setCanceledOnTouchOutside(false)
+                dialogLoadingProgress!!.setCancelable(false)
+                dialogLoadingProgress!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialogLoadingProgress!!.show()
+                dialogLoadingProgress!!.window!!.setLayout(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+            } catch (e: Exception) {
+                Log.e(TAG, "hideProgressLoadingDialog: $e")
+            }
+        }
+
+        fun hideProgressLoadingDialog() {
+            try {
+                (dialogLoadingProgress as AlertDialog?)!!.dismiss()
+            } catch (e: Exception) {
+                Log.e(TAG, "hideProgressLoadingDialog: $e")
+            }
+        }
 
         fun navigateToActivityServiceWithExtraNoBack(
             activity: Context,

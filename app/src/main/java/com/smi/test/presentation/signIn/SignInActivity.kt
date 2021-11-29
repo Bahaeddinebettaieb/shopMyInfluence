@@ -1,8 +1,14 @@
 package com.smi.test.presentation.signIn
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,6 +42,7 @@ class SignInActivity : AppCompatActivity() {
     var userModel: User? = null
     private var firebaseAuth: FirebaseAuth? = null
     private val mAuthListener: FirebaseAuth.AuthStateListener? = null
+    var dialogLoadingProgress: Dialog? = null
 
 
     var passwordText: String? = null
@@ -124,8 +131,10 @@ class SignInActivity : AppCompatActivity() {
         emailText = emailEditText!!.text.toString()
         passwordText = passwordEditText!!.text.toString()
         if (checkFields()){
+            showProgressLoadingDialog()
             firebaseAuth!!.signInWithEmailAndPassword(emailText!!, passwordText!!).addOnCompleteListener(
                 OnCompleteListener<AuthResult> { task ->
+                    hideProgressLoadingDialog()
                     if (task.isSuccessful) {
                         val user: FirebaseUser = firebaseAuth!!.currentUser!!
                         if (task.result!!.additionalUserInfo!!.isNewUser) {
@@ -153,9 +162,38 @@ class SignInActivity : AppCompatActivity() {
                         Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
                     }
                 }).addOnFailureListener(OnFailureListener { e ->
+                hideProgressLoadingDialog()
                 Toast.makeText(
                     this, e.message, Toast.LENGTH_SHORT).show()
             })
+        }
+    }
+
+    fun showProgressLoadingDialog() {
+        try {
+            val view = LayoutInflater.from(this)
+                .inflate(R.layout.progress_bar_dialog, null, false)
+            val alertDialogBuilder = AlertDialog.Builder(this, R.style.CustomDialog)
+            alertDialogBuilder.setView(view)
+            dialogLoadingProgress = alertDialogBuilder.create()
+            dialogLoadingProgress!!.setCanceledOnTouchOutside(false)
+            dialogLoadingProgress!!.setCancelable(false)
+            dialogLoadingProgress!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialogLoadingProgress!!.show()
+            dialogLoadingProgress!!.window!!.setLayout(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "hideProgressLoadingDialog: $e")
+        }
+    }
+
+    fun hideProgressLoadingDialog() {
+        try {
+            (dialogLoadingProgress as AlertDialog?)!!.dismiss()
+        } catch (e: Exception) {
+            Log.e(TAG, "hideProgressLoadingDialog: $e")
         }
     }
 }

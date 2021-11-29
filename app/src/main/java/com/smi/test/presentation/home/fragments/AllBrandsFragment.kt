@@ -53,6 +53,7 @@ class AllBrandsFragment : Fragment() {
                 for (ds in dataSnapshot.children) {
                     val brandModel: Brands? = ds.getValue(Brands::class.java)
                     Log.e(TAG, "onDataChange: $ds")
+
                     brandModel?.let { allBrandList!!.add(it) }
                     adapterAllBrands = allBrandList?.let {
                         activity?.let { it1 -> BrandsAdapter(it1, it) }

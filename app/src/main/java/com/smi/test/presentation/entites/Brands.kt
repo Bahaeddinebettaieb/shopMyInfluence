@@ -5,12 +5,13 @@ import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 
-data class Brands(val image: String? = null ) : Serializable
-{
-//    var image: String? = null
-//    var id: String? = null
-//    constructor() {}
-//    constructor(image: String?) {
-//        this.image = image
-//    }
+data class Brands(
+    val offerId: Int? = null,
+    val pic: String? = null,
+    val displayName: String? = null,
+    val description: String? = null,
+) : Serializable {
+    override fun toString(): String {
+        return "Brands(offerId=$offerId, pic=$pic, displayName=$displayName, description=$description)"
+    }
 }
